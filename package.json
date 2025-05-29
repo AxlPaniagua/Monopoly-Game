@@ -1,0 +1,26 @@
+{
+  "name": "monopoly-game",
+  "version": "1.0.0",
+  "description": "A console-based Monopoly game built with TypeScript",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "npx ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AxlPaniagua/Monopoly-Game.git"
+  },
+  "keywords": [],
+  "author": "Axel Paniagua",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AxlPaniagua/Monopoly-Game/issues"
+  },
+  "homepage": "https://github.com/AxlPaniagua/Monopoly-Game#readme",
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "ts-node": "^10.9.2"
+  }
+}
