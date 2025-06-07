@@ -13,9 +13,43 @@ export class Game{
         this.board = this.generateBoard();
     }
 
-    public startGame(){
+    public startGame(): void {
+        console.log("🎲 Starting Monopoly Lite!");
+        console.log("Players:", this.players.map(p => p.name).join(", "));
+        console.log("---------------------------------------------");
 
+        let gameEnded = false;
+        let round = 1;
+        const maxRounds = 30;
+
+        while (!gameEnded && round <= maxRounds) {
+            console.log(`\n🔄 Round ${round}`);
+            const player = this.players[this.currentTurn];
+
+            console.log(`👉 ${player.name}'s turn`);
+            const dice = this.rollDice();
+            console.log(`${player.name} rolled a 🎲 ${dice}`);
+
+            this.movePlayer(dice);
+            
+            gameEnded = this.checkGameOver();
+
+            if (!gameEnded) {
+                this.nextTurn();
+            }
+
+            console.log("---------------------------------------------");
+            round++;
+        }
+
+        if (!gameEnded) {
+            console.log(`🛑 Max rounds (${maxRounds}) reached. Game ended due to time limit.`);
+        } else {
+            console.log("🏁 Game Over!");
+        }
     }
+
+
 
     public rollDice(){
         return Math.floor(Math.random() * 6) + 1;
@@ -84,10 +118,26 @@ export class Game{
                     console.log(`${player.name} landed exactly on GO. Take a breath and enjoy your salary 💵`);
                     break;
                 case "Jail":
-                    console.log(`${player.name} is just visiting Jail 🧑‍⚖️`);
+                    const jailFee = 300;
+                    player.amount -= jailFee;
+                    console.log(`${player.name} landed on Jail and paid a fine of $${jailFee} 👮`);
+
+                    if (player.amount <= 0) {
+                        player.status = 'broke';
+                        console.log(`${player.name} went broke after paying the jail fine 💸`);
+                    }
                     break;
                 case "Surprise":
-                    console.log(`${player.name} landed on a Surprise tile! (Not implemented yet) 🎁`);
+                    const surprise = Math.floor(Math.random() * 3) + 1;
+
+                    if(surprise === 1){
+                        console.log(`Sorry ${player.name} your surprise is a payment ($100)☠️`)
+                    }else if(surprise === 2){
+                        console.log(`Congratulations ${player.name} your surprise is a bonus ($100)🥳`)
+                    }else if(surprise ===3){
+                        console.log(`Congratulations ${player.name} your surprise is a payment ($300)🥳`)
+                    }
+                    
                     break;
                 default:
                     console.log(`${player.name} landed on ${tile}`);
@@ -96,8 +146,14 @@ export class Game{
     }
 
 
-    public nextTurn(){
+    public nextTurn(): void {
+        const totalPlayers = this.players.length;
 
+        do {
+            this.currentTurn = (this.currentTurn + 1) % totalPlayers;
+        } while (this.players[this.currentTurn].status === 'broke');
+
+        console.log(`🔁 It's now ${this.players[this.currentTurn].name}'s turn`);
     }
 
     public checkGameOver(): boolean{
@@ -127,10 +183,10 @@ export class Game{
         new Property("Avenida Central", 200, "red"),
 
         "Surprise",
-        new Property("Calle 2", 180, "green"),
+        new Property("Fuente de la Hispanidad", 180, "green"),
 
         "Jail",
-        new Property("Carcel", 220, "blue"),
+        new Property("Estadio Carlos Ugalde", 220, "blue"),
         
     ];
     }
