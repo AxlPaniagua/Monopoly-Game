@@ -1,16 +1,13 @@
-// index.ts
-import { Player } from './player';
-import { Game } from './game';
+import { Player } from './models/Player'; // Jugador
+import { Game } from './core/Game';        // Núcleo del juego
 
-// Create players
-const players: Player[] = [
-    new Player("Axel"),
-    new Player("Catalina"),
-    new Player("Nicole")
+// Lista de jugadores que participan en la partida
+const players = [
+  new Player("Axel"),
+  new Player("Catalina"),
+  new Player("Nicole"),
 ];
 
-// Initialize game 
-const game = new Game(players, []);
-
-// Start the game loop
+// Crea instancia del juego y lo inicia
+const game = new Game(players);
 game.startGame();
