@@ -8,7 +8,7 @@ import { playerService } from './PlayerService';
 export class PropertyService {
   private playerSvc = new playerService();
 
-  // Mantén por compatibilidad si lo usas en otros lados
+  // Maneja la lógica de compra y alquiler de propiedades
   handlePropertyLanding(player: Player, property: Property) {
     if (!property.owner) {
       this.purchase(player, property);
@@ -17,7 +17,9 @@ export class PropertyService {
     }
   }
 
-  // ——— AHORA PÚBLICO ———
+  // Permite al jugador comprar una propiedad si tiene suficiente dinero
+  // y actualiza el estado de la propiedad
+  // Si no tiene suficiente dinero, muestra un mensaje
   public purchase(player: Player, property: Property) {
     if (player.amount >= property.cost) {
       this.playerSvc.deductMoney(player, property.cost, `compra ${property.name}`);
@@ -28,7 +30,11 @@ export class PropertyService {
     }
   }
 
-  // ——— AHORA PÚBLICO ———
+  // Permite al jugador pagar renta al dueño de la propiedad
+  // Deduce el dinero del jugador y lo suma al dueño
+  // Si la propiedad no tiene dueño, no hace nada
+  // Si el jugador no tiene suficiente dinero, lo declara en quiebra
+  // y actualiza su estado
   public payRent(player: Player, property: Property) {
     const owner = property.owner;
     if (!owner) return;
