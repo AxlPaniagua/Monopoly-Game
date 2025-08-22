@@ -47,3 +47,23 @@
 - Properties: buy if unowned; pay rent if owned by someone else.
 - Round limit: 30; if reached, the player with most cash wins (ties possible).
 - Game over: when only one player remains with status "playing".
+
+---
+
+✅ Requirements ✅
+- **Node.js 18+** (check with `node -v`)
+- **npm** (check with `npm -v`)
+
+---
+
+▶️ Quick Start ▶️
+
+bash
+1) Clone the repo
+    - cd Monopoly-Game
+
+2) Install dependencies
+    - npm install
+
+3) Run directly with ts-node (no scripts)
+    - npx ts-node src/index.ts
