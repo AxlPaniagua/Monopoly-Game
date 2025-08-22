@@ -5,7 +5,7 @@
 
 ---
 
-🚀 Features
+🚀 Features 🚀
 - Console-based gameplay with a minimal UI (`confirm` and `step` prompts).
 - Automatic turn order handled by `TurnManager`.
 - Dice rolls, player movement, and tile actions.
